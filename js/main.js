@@ -28,7 +28,11 @@ NineTeen.GameRound = function (pId, pLineLength) {
     this.GetDimension = function () {
         var dim = {};
         dim.x = this.lineLength;
-        dim.y = Math.floor(this.numbers.length / this.lineLength);
+        dim.y = this.numbers.length / this.lineLength;
+        //We don´t need an extra row if we can divide exactly
+        if (dim.y != Math.floor(dim.y)) {
+            dim.y = Math.floor(dim.y + 1);
+        }
         return dim;
     }
 }

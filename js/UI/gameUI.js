@@ -10,21 +10,23 @@ NineTeen.gameUI.DrawGame = function (pGame) {
     for (var y = 0; y < pGame.GetDimension().y; y++) {
         var rowHtml = '<tr>';
         for (var x = 0; x < pGame.GetDimension().x; x++) {
+            //Overflow
+            if (pGame.GetNumber(x, y) !== undefined) {
+                var extraClass = "";
+                if (pGame.GetNumber(x, y).crossed || pGame.selectedIndex === x + y * pGame.lineLength) {
+                    extraClass = "active";
+                }
 
-            var extraClass = "";
-            if (pGame.GetNumber(x, y).crossed || pGame.selectedIndex === x + y * pGame.lineLength) {
-                extraClass = "active";
+                rowHtml += '<td><button type="button" class="btn btn-default ' + extraClass + '" data-toggle="button" id="button' + pGame.id + "index" + (x + y * pGame.lineLength) + '">';
+
+                if (pGame.GetNumber(x, y).crossed) {
+                    rowHtml += '<strike>' + pGame.GetNumber(x, y).number + '</strike>';
+                } else {
+                    rowHtml += pGame.GetNumber(x, y).number;
+                }
+
+                rowHtml += '</button></td>';
             }
-
-            rowHtml += '<td><button type="button" class="btn btn-default ' + extraClass + '" data-toggle="button" id="button' + pGame.id + "index" + (x + y * pGame.lineLength) + '">';
-
-            if (pGame.GetNumber(x, y).crossed) {
-                rowHtml += '<strike>' + pGame.GetNumber(x, y).number + '</strike>';
-            } else {
-                rowHtml += pGame.GetNumber(x, y).number;
-            }
-
-            rowHtml += '</button></td>';
         }
 
         rowHtml += '</tr>';
